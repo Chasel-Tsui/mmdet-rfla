@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import Scale
 from mmcv.runner import force_fp32
-from mmcv.ops import DeformConvG 
 
 from mmdet.core import distance2bbox, multi_apply, multiclass_nms, reduce_mean, build_assigner
 from ..builder import HEADS, build_loss
