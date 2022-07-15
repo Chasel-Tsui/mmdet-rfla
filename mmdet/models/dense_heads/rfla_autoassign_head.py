@@ -72,6 +72,7 @@ class CenterPrior(nn.Module):
                     within a certain gt or is the topk nearest points for \
                     a specific gt_bbox.
         """
+        torch.autograd.set_detect_anomaly(True)
         inside_gt_bbox_mask = inside_gt_bbox_mask.clone()
         num_gts = len(labels) # number of gts
         num_points = sum([len(item) for item in anchor_points_list]) # number of points
@@ -162,7 +163,7 @@ class RFLA_AutoAssignHead(FCOSHead):
         self.center_loss_weight = center_loss_weight
         self.fpn_layer = fpn_layer
         self.fraction = fraction
-        #self.assigner = build_assigner(self.train_cfg.assigner)
+        self.assigner = build_assigner(self.train_cfg.assigner)
 
     def init_weights(self):
         """Initialize weights of the head.
@@ -171,7 +172,7 @@ class RFLA_AutoAssignHead(FCOSHead):
         regression conv's bias
         """
 
-        super(RAutoAssignHead, self).init_weights()
+        super(RFLA_AutoAssignHead, self).init_weights()
         bias_cls = bias_init_with_prob(0.02)
         normal_init(self.conv_cls, std=0.01, bias=bias_cls)
         normal_init(self.conv_reg, std=0.01, bias=4.0)
@@ -213,7 +214,7 @@ class RFLA_AutoAssignHead(FCOSHead):
         # scale the bbox_pred of different level
         # float to avoid overflow when enabling FP16
         bbox_pred = scale(bbox_pred).float()
-        bbox_pred = F.relu(bbox_pred)
+        bbox_pred = F.relu(bbox_pred) # Note: bbox_pred = F.relu(bbox_pred, inplace=False)
         bbox_pred *= stride
         return cls_score, bbox_pred, centerness
 

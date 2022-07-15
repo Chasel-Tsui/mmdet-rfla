@@ -41,9 +41,8 @@ class BboxDistanceMetric(object):
         return repr_str
 
 
-def bbox_overlaps(bboxes1, bboxes2, mode='iou', is_aligned=False, eps=1e-6, constant=12.8 , weight=2):
-    assert mode in ['iou', 'iof', 'giou', 'wd'
-                    'kl','center_distance2','exp_kl','kl_10'], f'Unsupported mode {mode}'
+def bbox_overlaps(bboxes1, bboxes2, mode='iou', is_aligned=False, eps=1e-6, weight=2):
+    assert mode in ['iou', 'iof', 'giou', 'wd', 'kl','center_distance2','exp_kl','kl_10'], f'Unsupported mode {mode}'
     # Either the boxes are empty or the length of boxes's last dimenstion is 4
     assert (bboxes1.size(-1) == 4 or bboxes1.size(0) == 0)
     assert (bboxes2.size(-1) == 4 or bboxes2.size(0) == 0)
