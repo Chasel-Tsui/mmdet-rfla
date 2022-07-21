@@ -1,2 +1,22 @@
 # mmdet-rfla
 This is the official implementation of the ECCV2022 paper "RFLA: Gaussian Receptive based Label Assignment for Tiny Object Detection".
+## Installation and Get Started
+
+Required environments:
+* Linux
+* Python 3.6+
+* PyTorch 1.3+
+* CUDA 9.2+
+* GCC 5+
+* [MMCV](https://mmcv.readthedocs.io/en/latest/#installation)
+* [cocoapi-aitod](https://github.com/jwwangchn/cocoapi-aitod)
+
+
+Install TODbox:
+
+Note that this repository is based on the [MMDetection](https://github.com/open-mmlab/mmdetection). Assume that your environment has satisfied the above requirements, please follow the following steps for installation.
+
+```shell script
+git clone https://github.com/Chasel-Tsui/mmdet-rfla.git
+pip install -r requirements/build.txt
+python setup.py develop
