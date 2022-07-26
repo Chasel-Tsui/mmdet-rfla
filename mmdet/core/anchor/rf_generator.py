@@ -95,9 +95,9 @@ class RFGenerator:
         """
         multi_level_base_anchors = []
         if self.fpn_layer == 'p3':
-            self.base_sizes = [91, 267, 427, 555, 811] # the theoretical receptive field of P3~P7 FPN, ResNet 50, ref: https://distill.pub/2019/computing-receptive-fields/
+            self.base_sizes = [91, 267, 427, 555, 811] # the theoretical receptive field of P3~P7 FPN, ResNet 50
         else:
-            self.base_sizes = [34, 91, 267, 427, 555]  # the theoretical receptive field of P2~P6 FPN, ResNet 50
+            self.base_sizes = [35, 91, 267, 427, 555]  # the theoretical receptive field of P2~P6 FPN, ResNet 50
 
         for i, base_size in enumerate(self.base_sizes):
             center = None
@@ -110,6 +110,29 @@ class RFGenerator:
                     ratios=self.ratios,
                     center=center))
         return multi_level_base_anchors
+    
+    def gen_trf(self):
+        '''
+        Calculate the theoretical receptive field from P2-p7 of a standard Res50-FPN.
+        # ref: https://distill.pub/2019/computing-receptive-fields/
+        '''
+        j_i = [1]
+        for i in range(7):
+            j = j_i[i]*2
+            j_i.append(j)
+
+        r_i = [1]
+        r1 = r_i[0] + (7-1)*j_i[0]
+        r_i.append(r1)
+        for i in range(7):
+            r = r_i
+
+
+
+
+
+
+
 
     def gen_single_level_base_anchors(self,
                                       base_size,
