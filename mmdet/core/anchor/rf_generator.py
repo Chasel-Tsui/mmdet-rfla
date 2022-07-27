@@ -94,10 +94,11 @@ class RFGenerator:
                 feature levels.
         """
         multi_level_base_anchors = []
+        all_trfs = self.gen_trf()
         if self.fpn_layer == 'p3':
-            self.base_sizes = [91, 267, 427, 555, 811] # the theoretical receptive field of P3~P7 FPN, ResNet 50
+            self.base_sizes = all_trfs[-5:] # the theoretical receptive field of P3~P7 FPN, ResNet 50
         else:
-            self.base_sizes = [35, 91, 267, 427, 555]  # the theoretical receptive field of P2~P6 FPN, ResNet 50
+            self.base_sizes = all_trfs[:5]  # the theoretical receptive field of P2~P6 FPN, ResNet 50
 
         for i, base_size in enumerate(self.base_sizes):
             center = None
@@ -113,25 +114,37 @@ class RFGenerator:
     
     def gen_trf(self):
         '''
-        Calculate the theoretical receptive field from P2-p7 of a standard Res50-FPN.
+        Calculate the theoretical receptive field from P2-p7 of a standard ResNet-50-FPN.
         # ref: https://distill.pub/2019/computing-receptive-fields/
         '''
+
         j_i = [1]
         for i in range(7):
             j = j_i[i]*2
             j_i.append(j)
 
-        r_i = [1]
-        r1 = r_i[0] + (7-1)*j_i[0]
-        r_i.append(r1)
-        for i in range(7):
-            r = r_i
+        r0 = 1
+        r1 = r0 + (7-1)*j_i[0]
+        
+        r2 = r1 + (3-1)*j_i[1]
+        trf_p2 = r2 + (3-1)*j_i[2]*3
 
+        r3 = trf_p2 + (3-1)*j_i[2]
+        trf_p3 = r3 + (3-1)*j_i[3]*3
 
+        r4 = trf_p3 + (3-1)*j_i[3]
+        trf_p4 = r4 + (3-1)*j_i[4]*5
 
+        r5 = trf_p4 + (3-1)*j_i[4]
+        trf_p5 = r5 + (3-1)*j_i[5]*2
+ 
+        trf_p6 = trf_p5 + (3-1)*j_i[6]
 
+        trf_p7 = trf_p6 + (3-1)*j_i[7]
 
+        trfs = [trf_p2, trf_p3, trf_p4, trf_p5, trf_p6, trf_p7]
 
+        return trfs
 
 
     def gen_single_level_base_anchors(self,
