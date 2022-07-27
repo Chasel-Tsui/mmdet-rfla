@@ -508,23 +508,24 @@ class RFLA_FCOSHead(AnchorFreeHead):
         
         # convert points to rf according to its layer
         rfields = []
+        trfs = self.gen_trf()
         for num in range(len(points)):
             rfield=[]
             if self.fpn_layer == 'p3':
                 rfnum = num +1
 
             if rfnum == 0:
-                rf = 35*self.fraction
+                rf = trfs[0]*self.fraction
             elif rfnum == 1:
-                rf = 91*self.fraction
+                rf = trfs[1]*self.fraction
             elif rfnum == 2:
-                rf = 267*self.fraction
+                rf = trfs[2]*self.fraction
             elif rfnum == 3:
-                rf = 427*self.fraction 
+                rf = trfs[3]*self.fraction 
             elif rfnum == 4:
-                rf = 555*self.fraction
+                rf = trfs[4]*self.fraction
             else:
-                rf = 811*self.fraction
+                rf = trfs[5]*self.fraction
                       
             point = points[num]
             px1 = point[...,0] - rf/2
@@ -646,3 +647,37 @@ class RFLA_FCOSHead(AnchorFreeHead):
                 left_right.min(dim=-1)[0].clamp(min=0.01) / left_right.max(dim=-1)[0]) * (
                     top_bottom.min(dim=-1)[0].clamp(min=0.01) / top_bottom.max(dim=-1)[0])
         return torch.sqrt(centerness_targets)
+
+    def gen_trf(self):
+        '''
+        Calculate the theoretical receptive field from P2-p7 of a standard ResNet-50-FPN.
+        # ref: https://distill.pub/2019/computing-receptive-fields/
+        '''
+
+        j_i = [1]
+        for i in range(7):
+            j = j_i[i]*2
+            j_i.append(j)
+
+        r0 = 1
+        r1 = r0 + (7-1)*j_i[0]
+        
+        r2 = r1 + (3-1)*j_i[1]
+        trf_p2 = r2 + (3-1)*j_i[2]*3
+
+        r3 = trf_p2 + (3-1)*j_i[2]
+        trf_p3 = r3 + (3-1)*j_i[3]*3
+
+        r4 = trf_p3 + (3-1)*j_i[3]
+        trf_p4 = r4 + (3-1)*j_i[4]*5
+
+        r5 = trf_p4 + (3-1)*j_i[4]
+        trf_p5 = r5 + (3-1)*j_i[5]*2
+ 
+        trf_p6 = trf_p5 + (3-1)*j_i[6]
+
+        trf_p7 = trf_p6 + (3-1)*j_i[7]
+
+        trfs = [trf_p2, trf_p3, trf_p4, trf_p5, trf_p6, trf_p7]
+
+        return trfs
