@@ -1,5 +1,13 @@
 # mmdet-rfla
 This is the official implementation of the ECCV2022 paper "RFLA: Gaussian Receptive based Label Assignment for Tiny Object Detection".
+
+## Introduction
+RFLA is a label assignment strategy that can replace mainstream anchor-based and anchor-free label strategies and boost their performance on tiny object detection tasks.
+
+Abstract:
+
+![demo image](figures/structure.png)
+
 ## Installation and Get Started
 
 Required environments:
@@ -20,3 +28,8 @@ Note that this repository is based on the [MMDetection](https://github.com/open-
 git clone https://github.com/Chasel-Tsui/mmdet-rfla.git
 pip install -r requirements/build.txt
 python setup.py develop
+
+## Main Results
+
+## Visualization
+![demo image](figures/results.gif)
