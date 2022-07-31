@@ -45,3 +45,14 @@ DR w/ RFLA | R-50 | **24.8** | **55.2** | **18.5** | 9.3 | **24.8** | **30.3** |
 ## Visualization
 The images are from the AI-TOD, VisDrone2019 and DOTA-v2 datasets. Note that the green box denotes the True Positive, the red box denotes the False Negative and the blue box denotes the False Positive predictions.
 ![demo image](figures/result.gif)
+
+## Citation
+If you find this work helpful, please consider citing:
+```bibtex
+@inproceedings{xu2022rfla,
+  title={RFLA: Gaussian Receptive based Label Assignment for Tiny Object Detection},
+  author={Xu, Chang and Wang, Jinwang and Yang, Wen and Yu, Huai and Yu, Lei and Xia, Gui-Song},
+  booktitle={European Conference on Computer Vision (ECCV)},
+  year={2022}
+}
+```
