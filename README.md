@@ -35,4 +35,4 @@ python setup.py develop
 Stay tuned.
 
 ## Visualization
-![demo image](figures/results.gif)
+![demo image](figures/result.gif)
