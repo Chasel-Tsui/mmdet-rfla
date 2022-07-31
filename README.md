@@ -4,7 +4,7 @@ This is the official implementation of the ECCV2022 paper "RFLA: Gaussian Recept
 ## Introduction
 RFLA is a label assignment strategy that can replace mainstream anchor-based and anchor-free label strategies and boost their performance on tiny object detection tasks.
 
-Abstract: Detecting tiny objects is one of the main obstacles hindering the development of object detection. The performance of generic object detectors tends to drastically deteriorate on tiny object detection tasks. In this paper, we point out that either box prior in the anchor-based detector or point prior in the anchor-free detector is sub-optimal for tiny objects. Our key observation is that the current anchor-based or anchor-free label assignment paradigms will incur many outlier tiny-sized ground truth samples, leading to detectors imposing less focus on the tiny objects. To this end, we propose a Gaussian Receptive Field based Label Assignment (RFLA) strategy for tiny object detection. Specifically, RFLA first utilizes the prior information that the feature receptive field follows Gaussian distribution. Then, instead of assigning samples with IoU or center sampling strategy, a new Receptive Field Distance (RFD) is proposed to directly measure the similarity between the Gaussian receptive field and ground truth. Considering that the IoU-threshold based and center sampling strategy are skewed to large objects, we further design a Hierarchical Label Assignment (HLA) module based on RFD to achieve balanced learning for tiny objects. Extensive experiments on four datasets demonstrate the effectiveness of the proposed methods. Especially, our approach outperforms the state-of-the-art competitors with 4.0 AP points on the AI-TOD dataset.
+**Abstract**: Detecting tiny objects is one of the main obstacles hindering the development of object detection. The performance of generic object detectors tends to drastically deteriorate on tiny object detection tasks. In this paper, we point out that either box prior in the anchor-based detector or point prior in the anchor-free detector is sub-optimal for tiny objects. Our key observation is that the current anchor-based or anchor-free label assignment paradigms will incur many outlier tiny-sized ground truth samples, leading to detectors imposing less focus on the tiny objects. To this end, we propose a Gaussian Receptive Field based Label Assignment (RFLA) strategy for tiny object detection. Specifically, RFLA first utilizes the prior information that the feature receptive field follows Gaussian distribution. Then, instead of assigning samples with IoU or center sampling strategy, a new Receptive Field Distance (RFD) is proposed to directly measure the similarity between the Gaussian receptive field and ground truth. Considering that the IoU-threshold based and center sampling strategy are skewed to large objects, we further design a Hierarchical Label Assignment (HLA) module based on RFD to achieve balanced learning for tiny objects. Extensive experiments on four datasets demonstrate the effectiveness of the proposed methods. Especially, our approach outperforms the state-of-the-art competitors with 4.0 AP points on the AI-TOD dataset.
 
 
 ![demo image](figures/rfla_final.PNG)
@@ -21,7 +21,7 @@ Required environments:
 * [cocoapi-aitod](https://github.com/jwwangchn/cocoapi-aitod)
 
 
-Install TODbox:
+Install:
 
 Note that this repository is based on the [MMDetection](https://github.com/open-mmlab/mmdetection). Assume that your environment has satisfied the above requirements, please follow the following steps for installation.
 
@@ -32,7 +32,16 @@ python setup.py develop
 ```
 
 ## Main Results
-Stay tuned.
+Table 1. **Training Set:** AI-TOD trainval set, **Validation Set:** AI-TOD test set, 12 epochs
+Method | Backbone | mAP | AP<sub>50</sub> | AP<sub>75</sub> |AP<sub>vt</sub> | AP<sub>t</sub>  | AP<sub>s</sub>  | AP<sub>m</sub> | Model 
+--- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
+FCOS* | R-50 | 15.4 | 36.3 | 10.9 | 6.0 | 17.6 | 18.5 | 20.7 |
+FR | R-50 | 11.1 | 26.3 | 7.6 | 0.0 | 7.2| 23.3 | 33.6 |
+DR | R-50 | 14.8 | 32.8 | 11.4 | 0.0 | 10.8 | 28.3 | 38.0 |
+FCOS*  w/ RFLA | R-50 | 16.3 | 39.1 | 11.3 | 7.3 | 18.5| 19.8 | 21.8 | 
+FR w/ RFLA | R-50 | 21.1 | 51.6 | 13.1 | **9.5** | 21.2 | 26.1 | 31.5 |
+DR w/ RFLA | R-50 | **24.8** | **55.2** | **18.5** | 9.3 | **24.8** | **30.3** | 38.2 |
 
 ## Visualization
+The images are from the AI-TOD, VisDrone2019 and DOTA-v2 datasets. Note that the green box denotes the True Positive, the red box denotes the False Negative and the blue box denotes the False Positive predictions.
 ![demo image](figures/result.gif)
