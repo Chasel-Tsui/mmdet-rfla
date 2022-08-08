@@ -47,7 +47,7 @@ Method | Backbone | mAP | AP<sub>50</sub> | AP<sub>75</sub> |AP<sub>vt</sub> | A
 --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
 
 ## Visualization
-The images are from the AI-TOD, VisDrone2019 and DOTA-v2 datasets. Note that the green box denotes the True Positive, the red box denotes the False Negative and the blue box denotes the False Positive predictions.
+The images are from the AI-TOD, VisDrone2019 and DOTA-v2 datasets. Note that the <font color=green>green box</font> denotes the True Positive, the <font color=red>red box</font> denotes the False Negative and the <font color=blue>blue box</font> denotes the False Positive predictions.
 ![demo image](figures/result.gif)
 
 ## Citation
