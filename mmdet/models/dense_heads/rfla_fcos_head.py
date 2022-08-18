@@ -513,6 +513,8 @@ class RFLA_FCOSHead(AnchorFreeHead):
             rfield=[]
             if self.fpn_layer == 'p3':
                 rfnum = num +1
+            else:
+                rfnum = num
 
             if rfnum == 0:
                 rf = trfs[0]*self.fraction

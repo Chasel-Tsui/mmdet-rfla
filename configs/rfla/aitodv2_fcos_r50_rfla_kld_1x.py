@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/aitod_detection.py',
+    '../_base_/datasets/aitodv2_detection.py',
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 # model settings
@@ -37,7 +37,7 @@ model = dict(
         centerness_on_reg=True,
         dcn_on_last_conv=False,
         conv_bias=True,
-        fpn_layer = 'p3', # start FPN level 
+        fpn_layer = 'p3', # start FPN level
         fraction = 1/2,
         loss_cls=dict(
             type='FocalLoss',

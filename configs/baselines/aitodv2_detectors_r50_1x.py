@@ -1,33 +1,57 @@
 _base_ = [
-    '../_base_/datasets/aitod_detection.py',
-    '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
+    '../_base_/datasets/aitodv2_detection.py',
+    '../_base_/schedules/schedule_1x.py',
+    '../_base_/default_runtime.py'
 ]
+
+
 # model settings
 model = dict(
     type='CascadeRCNN',
+    pretrained='torchvision://resnet50',
     backbone=dict(
-        type='ResNet',
+        type='DetectoRS_ResNet',
         depth=50,
         num_stages=4,
         out_indices=(0, 1, 2, 3),
         frozen_stages=1,
         norm_cfg=dict(type='BN', requires_grad=True),
+        conv_cfg=dict(type='ConvAWS'),
         norm_eval=True,
-        style='pytorch',
-        init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50')),
+        sac=dict(type='SAC', use_deform=True),
+        stage_with_sac=(False, True, True, True),
+        output_img=True,
+        style='pytorch'),
     neck=dict(
-        type='FPN',
+        type='RFP',
         in_channels=[256, 512, 1024, 2048],
         out_channels=256,
-        num_outs=5),
+        num_outs=5,
+        rfp_steps=2,
+        aspp_out_channels=64,
+        aspp_dilations=(1, 3, 6, 1),
+        rfp_backbone=dict(
+            rfp_inplanes=256,
+            type='DetectoRS_ResNet',
+            depth=50,
+            num_stages=4,
+            out_indices=(0, 1, 2, 3),
+            frozen_stages=1,
+            norm_cfg=dict(type='BN', requires_grad=True),
+            norm_eval=True,
+            conv_cfg=dict(type='ConvAWS'),
+            sac=dict(type='SAC', use_deform=True),
+            stage_with_sac=(False, True, True, True),
+            pretrained='torchvision://resnet50',
+            style='pytorch')),
     rpn_head=dict(
         type='RPNHead',
         in_channels=256,
         feat_channels=256,
         anchor_generator=dict(
-            type='RFGenerator', # Effective Receptive Field as prior
-            fpn_layer='p2', # starting FPN level P2
-            fraction=0.5, # the fraction of ERF to TRF
+            type='AnchorGenerator',
+            scales=[8],
+            ratios=[0.5, 1.0, 2.0],
             strides=[4, 8, 16, 32, 64]),
         bbox_coder=dict(
             type='DeltaXYWHBBoxCoder',
@@ -101,13 +125,13 @@ model = dict(
     train_cfg=dict(
         rpn=dict(
             assigner=dict(
-                type='HieAssigner', # Hierarchical Label Assigner (HLA)
+                type='MaxIoUAssigner',
+                pos_iou_thr=0.7,
+                neg_iou_thr=0.3,
+                min_pos_iou=0.3,
+                match_low_quality=True,
                 ignore_iof_thr=-1,
-                gpu_assign_thr=512,
-                iou_calculator=dict(type='BboxDistanceMetric'),
-                assign_metric='kl', # KLD as RFD for label assignment
-                topk=[3,1],
-                ratio=0.9), # decay factor
+                gpu_assign_thr=256),
             sampler=dict(
                 type='RandomSampler',
                 num=256,
@@ -130,7 +154,8 @@ model = dict(
                     neg_iou_thr=0.5,
                     min_pos_iou=0.5,
                     match_low_quality=False,
-                    ignore_iof_thr=-1),
+                    ignore_iof_thr=-1,
+                    gpu_assign_thr=256),
                 sampler=dict(
                     type='RandomSampler',
                     num=512,
@@ -146,7 +171,8 @@ model = dict(
                     neg_iou_thr=0.6,
                     min_pos_iou=0.6,
                     match_low_quality=False,
-                    ignore_iof_thr=-1),
+                    ignore_iof_thr=-1,
+                    gpu_assign_thr=256),
                 sampler=dict(
                     type='RandomSampler',
                     num=512,
@@ -162,7 +188,8 @@ model = dict(
                     neg_iou_thr=0.7,
                     min_pos_iou=0.7,
                     match_low_quality=False,
-                    ignore_iof_thr=-1),
+                    ignore_iof_thr=-1,
+                    gpu_assign_thr=256),
                 sampler=dict(
                     type='RandomSampler',
                     num=512,
@@ -183,14 +210,13 @@ model = dict(
             nms=dict(type='nms', iou_threshold=0.5),
             max_per_img=3000)))
 
-optimizer = dict(type='SGD', lr=0.02/4, momentum=0.9, weight_decay=0.0001)
+# optimizer
+optimizer = dict(type='SGD', lr=0.01/2, momentum=0.9, weight_decay=0.0001)
 # learning policy
-checkpoint_config = dict(interval=4)
 lr_config = dict(
     policy='step',
     warmup='linear',
     warmup_iters=5000,
     warmup_ratio=0.001,
     step=[8, 11])
-runner = dict(type='EpochBasedRunner', max_epochs=12)
-evaluation = dict(interval=12, metric='bbox')
+checkpoint_config = dict(interval=4)

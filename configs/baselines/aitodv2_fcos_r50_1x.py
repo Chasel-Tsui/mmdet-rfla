@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/aitod_detection.py',
+    '../_base_/datasets/aitodv2_detection.py',
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 # model settings
@@ -26,7 +26,7 @@ model = dict(
         num_outs=5,
         relu_before_extra_convs=True),
     bbox_head=dict(
-        type='RFLA_FCOSHead',
+        type='FCOSHead',
         norm_cfg=None,
         num_classes=8,
         in_channels=256,
@@ -36,9 +36,8 @@ model = dict(
         norm_on_bbox=True,
         centerness_on_reg=True,
         dcn_on_last_conv=False,
+        center_sampling=True,
         conv_bias=True,
-        fpn_layer = 'p3', # start FPN level 
-        fraction = 1/2,
         loss_cls=dict(
             type='FocalLoss',
             use_sigmoid=True,
@@ -51,13 +50,11 @@ model = dict(
     # training and testing settings
     train_cfg=dict(
         assigner=dict(
-            type='HieAssigner',
-             ignore_iof_thr=-1,
-             gpu_assign_thr=256,
-             iou_calculator=dict(type='BboxDistanceMetric'),
-             assign_metric='kl',
-             topk=[3,1],
-             ratio=0.9),
+            type='MaxIoUAssigner',
+            pos_iou_thr=0.5,
+            neg_iou_thr=0.4,
+            min_pos_iou=0,
+            ignore_iof_thr=-1),
         allowed_border=-1,
         pos_weight=-1,
         debug=False),

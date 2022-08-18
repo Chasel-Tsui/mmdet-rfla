@@ -51,7 +51,7 @@ model = dict(
                 in_channels=256,
                 fc_out_channels=1024,
                 roi_feat_size=7,
-                num_classes=18,
+                num_classes=8,
                 bbox_coder=dict(
                     type='DeltaXYWHBBoxCoder',
                     target_means=[0., 0., 0., 0.],
@@ -68,7 +68,7 @@ model = dict(
                 in_channels=256,
                 fc_out_channels=1024,
                 roi_feat_size=7,
-                num_classes=18,
+                num_classes=8,
                 bbox_coder=dict(
                     type='DeltaXYWHBBoxCoder',
                     target_means=[0., 0., 0., 0.],
@@ -85,7 +85,7 @@ model = dict(
                 in_channels=256,
                 fc_out_channels=1024,
                 roi_feat_size=7,
-                num_classes=18,
+                num_classes=8,
                 bbox_coder=dict(
                     type='DeltaXYWHBBoxCoder',
                     target_means=[0., 0., 0., 0.],
@@ -181,3 +181,15 @@ model = dict(
             score_thr=0.05,
             nms=dict(type='nms', iou_threshold=0.5),
             max_per_img=3000)))
+
+optimizer = dict(type='SGD', lr=0.02/4, momentum=0.9, weight_decay=0.0001)
+# learning policy
+checkpoint_config = dict(interval=4)
+lr_config = dict(
+    policy='step',
+    warmup='linear',
+    warmup_iters=5000,
+    warmup_ratio=0.001,
+    step=[8, 11])
+runner = dict(type='EpochBasedRunner', max_epochs=12)
+evaluation = dict(interval=12, metric='bbox')

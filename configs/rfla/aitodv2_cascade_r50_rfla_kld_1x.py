@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/aitod_detection.py',
+    '../_base_/datasets/aitodv2_detection.py',
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 # model settings
@@ -26,7 +26,7 @@ model = dict(
         feat_channels=256,
         anchor_generator=dict(
             type='RFGenerator', # Effective Receptive Field as prior
-            fpn_layer='p2', # starting FPN level P2
+            fpn_layer='p2', # start FPN level P2
             fraction=0.5, # the fraction of ERF to TRF
             strides=[4, 8, 16, 32, 64]),
         bbox_coder=dict(

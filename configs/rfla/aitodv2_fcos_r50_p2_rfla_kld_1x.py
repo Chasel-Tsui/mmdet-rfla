@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/aitod_detection.py',
+    '../_base_/datasets/aitodv2_detection.py',
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 # model settings
@@ -21,7 +21,7 @@ model = dict(
         type='FPN',
         in_channels=[256, 512, 1024, 2048],
         out_channels=256,
-        start_level=1,
+        start_level=0,
         add_extra_convs='on_output',  # use P5
         num_outs=5,
         relu_before_extra_convs=True),
@@ -32,12 +32,12 @@ model = dict(
         in_channels=256,
         stacked_convs=4,
         feat_channels=256,
-        strides=[8, 16, 32, 64, 128],
+        strides=[4, 8, 16, 32, 64],
         norm_on_bbox=True,
         centerness_on_reg=True,
         dcn_on_last_conv=False,
         conv_bias=True,
-        fpn_layer = 'p3', # start FPN level 
+        fpn_layer = 'p2', # the lowest FPN level
         fraction = 1/2,
         loss_cls=dict(
             type='FocalLoss',
