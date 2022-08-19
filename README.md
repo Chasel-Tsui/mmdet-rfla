@@ -1,5 +1,5 @@
 # mmdet-rfla
-This is the official implementation of the ECCV2022 paper "RFLA: Gaussian Receptive based Label Assignment for Tiny Object Detection".
+This is the official implementation of the ECCV2022 paper "RFLA: Gaussian Receptive based Label Assignment for Tiny Object Detection". [arxiv](https://arxiv.org/abs/2208.08738)
 
 ## Introduction
 RFLA is a label assignment strategy that can replace mainstream anchor-based and anchor-free label strategies and boost their performance on tiny object detection tasks.
@@ -32,7 +32,7 @@ python setup.py develop
 ```
 
 ## Main Results
-Table 1. **Training Set:** AI-TOD trainval set, **Validation Set:** AI-TOD test set, 12 epochs
+Table 1. **Training Set:** AI-TOD trainval set, **Validation Set:** AI-TOD test set, 12 epochs. [AI-TOD dataset](https://github.com/jwwangchn/AI-TOD)
 Method | Backbone | mAP | AP<sub>50</sub> | AP<sub>75</sub> |AP<sub>vt</sub> | AP<sub>t</sub>  | AP<sub>s</sub>  | AP<sub>m</sub> 
 --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
 FCOS | R-50 | 12.0 | 29.0 | 8.0 | 2.5 | 11.9 | 17.1 | 23.1 
@@ -44,7 +44,7 @@ FCOS*  w/ RFLA | R-50 | 16.3 | 39.1 | 11.3 | 7.3 | 18.5| 19.8 | 21.8
 FR w/ RFLA | R-50 | 21.1 | 51.6 | 13.1 | **9.5** | 21.2 | 26.1 | 31.5 
 DR w/ RFLA | R-50 | **24.8** | **55.2** | **18.5** | 9.3 | **24.8** | **30.3** | **38.2** 
 
-Table 2. **Training Set:** AI-TOD-v2 trainval set, **Validation Set:** AI-TOD-v2 test set, 12 epochs
+Table 2. **Training Set:** AI-TOD-v2 trainval set, **Validation Set:** AI-TOD-v2 test set, 12 epochs. [AI-TOD-v2 dataset](https://chasel-tsui.github.io/AI-TOD-v2/)
 Method | Backbone | mAP | AP<sub>50</sub> | AP<sub>75</sub> |AP<sub>vt</sub> | AP<sub>t</sub>  | AP<sub>s</sub>  | AP<sub>m</sub> 
 --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
 FCOS | R-50 | 13.4 | 32.4 | 8.8 | 2.5 | 12.4 | 19.0 | 26.7 
