@@ -1,4 +1,5 @@
 '''
+re-implemeneted results Oct. 2022
 +--------------------+-------+-------------------+-------+------------------+-------+
 | category           | AP    | category          | AP    | category         | AP    |
 +--------------------+-------+-------------------+-------+------------------+-------+
@@ -82,7 +83,7 @@ model = dict(
         centerness_on_reg=True,
         dcn_on_last_conv=False,
         conv_bias=True,
-        fpn_layer = 'p3', # start FPN level
+        fpn_layer = 'p3', 
         fraction = 1/2,
         loss_cls=dict(
             type='FocalLoss',
