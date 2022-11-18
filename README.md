@@ -54,7 +54,7 @@ FCOS w/ RFLA | R-50 | 15.6 | 38.2 | 9.6 | 4.4 | 14.6 | 20.9 | 29.5
 FR w/ RFLA | R-50 | 22.6 | 54.8 | 14.5 | 8.6 | 21.7 | 28.8 | 35.5 
 DR w/ RFLA | R-50 | **25.7** | **58.9** | **18.8** | **9.2** | **25.5** | **30.2** | **40.2**  
 
-[Pretrained Models](https://1drv.ms/u/s!Ao5UiAkIbGJ7xRGZ3AYB7IW8zas2?e=opfU3x)
+Pretrained Models: [OneDrive Link](https://1drv.ms/u/s!Ao5UiAkIbGJ7xRGZ3AYB7IW8zas2?e=opfU3x)
 
 ## Visualization
 The images are from the AI-TOD, VisDrone2019 and DOTA-v2 datasets. Note that the <font color=green>green box</font> denotes the True Positive, the <font color=red>red box</font> denotes the False Negative and the <font color=blue>blue box</font> denotes the False Positive predictions.
