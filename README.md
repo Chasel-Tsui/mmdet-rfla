@@ -64,9 +64,11 @@ The images are from the AI-TOD, VisDrone2019 and DOTA-v2 datasets. Note that the
 If you find this work helpful, please consider citing:
 ```bibtex
 @inproceedings{xu2022rfla,
-  title={RFLA: Gaussian Receptive based Label Assignment for Tiny Object Detection},
+  title={RFLA: Gaussian receptive field based label assignment for tiny object detection},
   author={Xu, Chang and Wang, Jinwang and Yang, Wen and Yu, Huai and Yu, Lei and Xia, Gui-Song},
-  booktitle={European Conference on Computer Vision (ECCV)},
-  year={2022}
+  booktitle={European Conference on Computer Vision},
+  pages={526--543},
+  year={2022},
+  organization={Springer}
 }
 ```
