@@ -27,6 +27,7 @@ Note that this repository is based on the [MMDetection](https://github.com/open-
 
 ```shell script
 git clone https://github.com/Chasel-Tsui/mmdet-rfla.git
+cd mmdet-rfla
 pip install -r requirements/build.txt
 python setup.py develop
 ```
