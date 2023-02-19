@@ -32,8 +32,8 @@ pip install -r requirements/build.txt
 python setup.py develop
 ```
 ## Core Idea
-Outlier proposals can also be utilized to detect tiny objects since tiny objects may contain no feature points. This work models feature RF and gt as Gaussian in the label assignment process and explores its effectiveness and robustness in tiny object detection.  
-Please note that this repo is unsuited for generic object detection (e.g. VOC, COCO) since this problem is not obvious in medium and large objects.
+* Outlier proposals can also be utilized to detect tiny objects since tiny objects may contain no feature points. This work models feature RF and gt as Gaussian in the label assignment process and explores its effectiveness and robustness in tiny object detection.  
+* Please note that this repo is unsuited for generic object detection (e.g. VOC, COCO) since this problem is not obvious in medium and large objects.
 
 ## Main Results
 Table 1. **Training Set:** AI-TOD trainval set, **Validation Set:** AI-TOD test set, 12 epochs. [AI-TOD dataset](https://github.com/jwwangchn/AI-TOD)
