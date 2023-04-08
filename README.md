@@ -39,7 +39,8 @@ python setup.py develop
 Table 1. **Training Set:** AI-TOD trainval set, **Validation Set:** AI-TOD test set, 12 epochs. [AI-TOD dataset](https://github.com/jwwangchn/AI-TOD)
 Method | Backbone | mAP | AP<sub>50</sub> | AP<sub>75</sub> |AP<sub>vt</sub> | AP<sub>t</sub>  | AP<sub>s</sub>  | AP<sub>m</sub> 
 --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
-FCOS | R-50 | 12.0 | 29.0 | 8.0 | 2.5 | 11.9 | 17.1 | 23.1 
+FCOS (reproduce)| R-50 | 12.0 | 29.0 | 8.0 | 2.5 | 11.9 | 17.1 | 23.1 
+FCOS (paper) | R-50 | 12.6 | 30.4 | 8.1 | 2.3 | 12.2 | 17.2 | 25.0 
 FCOS*(P2) | R-50 | 15.4 | 36.3 | 10.9 | 6.0 | 17.6 | 18.5 | 20.7 
 FR | R-50 | 11.1 | 26.3 | 7.6 | 0.0 | 7.2| 23.3 | 33.6 
 DR | R-50 | 14.8 | 32.8 | 11.4 | 0.0 | 10.8 | 28.3 | 38.0 
